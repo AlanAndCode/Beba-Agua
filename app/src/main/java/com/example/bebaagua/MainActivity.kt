@@ -5,18 +5,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.AlarmClock
-import android.telecom.PhoneAccount.builder
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.bebaagua.model.CalcularIngestaoDiaria
 import java.text.NumberFormat
 import java.util.*
-import java.util.stream.DoubleStream.builder
-import java.util.stream.IntStream.builder
-import java.util.stream.LongStream.builder
 
 
 class MainActivity : AppCompatActivity() {
+
+    //private lateinit var binding: ActivityMainBinding
+
     private lateinit var edit_peso: EditText
     private lateinit var edit_idade: EditText
     private lateinit var buttonCalcular: Button
@@ -79,6 +78,8 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton("ok", {dialogInterface, i ->
                     edit_peso.setText("")
                     edit_idade.setText("")
+                    hora.setText("00")
+                    Minutos.setText("00")
                     textCalculo.text = ""
 
                 })
