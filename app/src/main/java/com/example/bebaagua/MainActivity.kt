@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.provider.AlarmClock
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.example.bebaagua.databinding.ActivityMainBinding
 import com.example.bebaagua.model.CalcularIngestaoDiaria
 import java.text.NumberFormat
 import java.util.*
@@ -14,7 +15,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var edit_peso: EditText
     private lateinit var edit_idade: EditText
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var hora: TextView
     private lateinit var Minutos : TextView
 
-    private fun IniciarComponentes() {
+    /*private fun IniciarComponentes() {
         edit_peso = findViewById(R.id.edit_peso)
         edit_idade = findViewById(R.id.edit_idade)
         buttonCalcular = findViewById(R.id.buttonCalcular)
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         Alarme = findViewById(R.id.Alarme)
         hora = findViewById(R.id.text_hora)
         Minutos = findViewById(R.id.Minutos)
-    }
+    }*/
     private lateinit var calcularIngestaoDiaria: CalcularIngestaoDiaria
     private var resultadoMl = 0.0
 
@@ -46,41 +47,44 @@ class MainActivity : AppCompatActivity() {
     var minutosAtuais = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+       binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar!!.hide()
-        IniciarComponentes()
+        //IniciarComponentes()
         calcularIngestaoDiaria = CalcularIngestaoDiaria()
 
-        buttonCalcular.setOnClickListener {
-            if (edit_peso.text.toString().isEmpty()) {
+        binding.buttonCalcular.setOnClickListener {
+            if ( binding.editPeso.text.toString().isEmpty()) {
                 Toast.makeText(this, R.string.Informe_Peso, Toast.LENGTH_SHORT).show()
-            } else if (edit_idade.text.toString().isEmpty()) {
+            } else if (binding.editIdade.text.toString().isEmpty()) {
                 Toast.makeText(this, R.string.Informe_Idade, Toast.LENGTH_SHORT).show()
             } else {
-                val peso = edit_peso.text.toString().toDouble()
-                val idade = edit_idade.text.toString().toInt()
+                val peso = binding.editPeso.text.toString().toDouble()
+                val idade = binding.editIdade.text.toString().toInt()
+                //val peso = edit_peso.text.toString().toDouble()
+                //val idade = edit_idade.text.toString().toInt()
                 calcularIngestaoDiaria.CalcularTotal(peso, idade)
                 resultadoMl = calcularIngestaoDiaria.ResultadoMl()
                 val formatar = NumberFormat.getNumberInstance(Locale("pt", "BR"))
                 formatar.isGroupingUsed = false
-                textCalculo.text = resultadoMl.toString() + " " + "ml"
+                binding.textCalculo.text = resultadoMl.toString() + " " + "ml"
 
             }
 
         }
 
-        redefinir.setOnClickListener{
+        binding.redefinir.setOnClickListener{
 
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(R.string.dialog_titulo)
                 .setMessage(R.string.dialog_descriçao)
                 .setPositiveButton("ok", {dialogInterface, i ->
-                    edit_peso.setText("")
-                    edit_idade.setText("")
-                    hora.setText("00")
-                    Minutos.setText("00")
-                    textCalculo.text = ""
+                    binding.editPeso.setText("")
+                    binding.editIdade.setText("")
+                    binding.textHora.setText("00")
+                    binding.Minutos.setText("00")
+                    binding.textCalculo.text = ""
 
                 })
 
@@ -91,24 +95,28 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        Lembrete.setOnClickListener {
+        binding.Lembrete.setOnClickListener {
 
             calendario = Calendar.getInstance()
             horaAtual = calendario.get(Calendar.HOUR_OF_DAY)
             minutosAtuais = calendario.get(Calendar.MINUTE)
             timePickerDialog = TimePickerDialog(this, { timePicker: TimePicker, hourOfDay: Int, minutes: Int ->
-                    hora.text = String.format("%02d", hourOfDay)
-                    Minutos.text = String.format("%02d", minutes)
+                    binding.textHora.text = String.format("%02d", hourOfDay)
+                    binding.Minutos.text = String.format("%02d", minutes)
 
                 }, horaAtual, minutosAtuais, true)
             timePickerDialog.show();
         }
 
-        Alarme.setOnClickListener{
+        binding.Alarme.setOnClickListener{
 
-            if(!hora.text.toString().isEmpty() && !Minutos.text.toString().isEmpty()){
+            val textHora = binding.textHora
+            val Minutos = binding.Minutos
+
+
+            if(!binding.textHora.toString().isEmpty() && !binding.Minutos.text.toString().isEmpty()){
                 val intent = Intent(AlarmClock.ACTION_SET_ALARM)
-                intent.putExtra(AlarmClock.EXTRA_HOUR, hora.text.toString().toInt())
+                intent.putExtra(AlarmClock.EXTRA_HOUR, textHora.text.toString().toInt())
                 intent.putExtra(AlarmClock.EXTRA_MINUTES, Minutos.text.toString().toInt())
                 intent.putExtra(AlarmClock.EXTRA_MESSAGE, getString(R.string.Hora_Agua))
 
