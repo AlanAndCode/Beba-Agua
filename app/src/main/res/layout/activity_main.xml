@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <View
+        android:id="@+id/container_header"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@drawable/container_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/bebaagua"
+        app:layout_constraintStart_toStartOf="@id/container_header"
+        app:layout_constraintTop_toTopOf="@id/container_header" />
+
+    <ImageView
+        android:id="@+id/redefinir"
+        android:layout_width="68dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_refresh_24"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="@id/container_header"
+        app:layout_constraintEnd_toEndOf="@id/container_header" />
+
+    <EditText
+        android:id="@+id/edit_peso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_peso"
+        android:textColorHint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:padding="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:inputType="numberDecimal"
+        android:maxLength="6"
+        android:gravity="center"
+
+        app:layout_constraintTop_toBottomOf="@id/container_header"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_idade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_idade"
+        android:textColorHint="@android:color/holo_blue_dark"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:padding="15dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:inputType="number"
+        android:maxLength="3"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/container_header"
+        app:layout_constraintStart_toEndOf="@id/edit_peso"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonCalcular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_button_calcular"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:padding="15dp"
+        android:background="@drawable/bg_degrade_buttom"
+        app:layout_constraintTop_toBottomOf="@id/edit_peso"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/containerResultado"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/container_resultado"
+        app:layout_constraintTop_toBottomOf="@id/buttonCalcular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        />
+    <TextView
+        android:id="@+id/textCalcullo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3008,6 ml"
+        android:textSize="35sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/containerResultado"
+        app:layout_constraintStart_toStartOf="@+id/containerResultado"
+        app:layout_constraintEnd_toEndOf="@+id/containerResultado"
+        app:layout_constraintBottom_toBottomOf="@id/containerResultado"
+/>
+    <Button
+        android:id="@+id/Lembrete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_button_lembrete"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        app:layout_constraintTop_toBottomOf="@id/containerResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp" />
+
+    <Button
+        android:id="@+id/Alarme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:text="@string/text_button_alarme"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerResultado" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_hora"
+        android:textSize="35sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="150dp"
+        app:layout_constraintTop_toBottomOf="@id/Lembrete"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/hora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_hora"
+        android:textSize="35sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="150dp"
+        app:layout_constraintTop_toBottomOf="@id/Lembrete"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/doisPontos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_doispontos"
+        android:textSize="35sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toBottomOf="@id/Lembrete"
+        app:layout_constraintStart_toEndOf="@id/hora" />
+
+    <TextView
+        android:id="@+id/Minutos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_Minutos"
+        android:textSize="35sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toBottomOf="@id/Lembrete"
+        app:layout_constraintStart_toEndOf="@id/doisPontos" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
