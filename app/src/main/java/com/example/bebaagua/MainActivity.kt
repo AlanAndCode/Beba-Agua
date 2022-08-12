@@ -1,7 +1,10 @@
 package com.example.bebaagua
 
+import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.telecom.PhoneAccount.builder
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -19,15 +22,29 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonCalcular: Button
     private lateinit var textCalculo: TextView
     private lateinit var redefinir: ImageButton
+    private lateinit var Lembrete: Button
+    private lateinit var Alarme: Button
+    private lateinit var hora: TextView
+    private lateinit var Minutos : TextView
+
     private fun IniciarComponentes() {
         edit_peso = findViewById(R.id.edit_peso)
         edit_idade = findViewById(R.id.edit_idade)
         buttonCalcular = findViewById(R.id.buttonCalcular)
         textCalculo = findViewById(R.id.textCalculo)
         redefinir = findViewById(R.id.redefinir)
+        Lembrete = findViewById(R.id.Lembrete)
+        Alarme = findViewById(R.id.Alarme)
+        hora = findViewById(R.id.text_hora)
+        Minutos = findViewById(R.id.Minutos)
     }
     private lateinit var calcularIngestaoDiaria: CalcularIngestaoDiaria
     private var resultadoMl = 0.0
+
+    lateinit var  timePickerDialog: TimePickerDialog
+    lateinit var calendario : Calendar
+    var horaAtual = 0
+    var minutosAtuais = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,14 +52,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         IniciarComponentes()
         calcularIngestaoDiaria = CalcularIngestaoDiaria()
-/*formula calculo agua
-ate 17 anos 40 ml por cada kg
-18 a 55 anos 35 ml por cada kg
-56 a 65 anos 30 ml por cada kg
-mais 66 25 ml por cada kg
-
-multiplicar peso em kg por quantidade de ml para ober resultado em Ml
- */
 
         buttonCalcular.setOnClickListener {
             if (edit_peso.text.toString().isEmpty()) {
@@ -65,13 +74,48 @@ multiplicar peso em kg por quantidade de ml para ober resultado em Ml
         redefinir.setOnClickListener{
 
             val alertDialog = AlertDialog.Builder(this)
-            alertDialog.setTitle(R.string.dia)
+            alertDialog.setTitle(R.string.dialog_titulo)
+                .setMessage(R.string.dialog_descriçao)
+                .setPositiveButton("ok", {dialogInterface, i ->
+                    edit_peso.setText("")
+                    edit_idade.setText("")
+                    textCalculo.text = ""
 
+                })
+
+            alertDialog.setNegativeButton("cancelar", null)
+
+            val dialog = alertDialog.create()
+            dialog.show()
 
         }
 
+        Lembrete.setOnClickListener {
 
+            calendario = Calendar.getInstance()
+            horaAtual = calendario.get(Calendar.HOUR_OF_DAY)
+            minutosAtuais = calendario.get(Calendar.MINUTE)
+            timePickerDialog = TimePickerDialog(this, { timePicker: TimePicker, hourOfDay: Int, minutes: Int ->
+                    hora.text = String.format("%02d", hourOfDay)
+                    Minutos.text = String.format("%02d", minutes)
 
+                }, horaAtual, minutosAtuais, true)
+            timePickerDialog.show();
+        }
+
+        Alarme.setOnClickListener{
+
+            if(!hora.text.toString().isEmpty() && !Minutos.text.toString().isEmpty()){
+                val intent = Intent(AlarmClock.ACTION_SET_ALARM)
+                intent.putExtra(AlarmClock.EXTRA_HOUR, hora.text.toString().toInt())
+                intent.putExtra(AlarmClock.EXTRA_MINUTES, Minutos.text.toString().toInt())
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, getString(R.string.Hora_Agua))
+
+                if (intent.resolveActivity(packageManager) !=null){
+                    startActivity(intent)
+                }
+            }
+        }
 
 
     }

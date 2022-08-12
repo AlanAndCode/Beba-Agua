@@ -12,7 +12,14 @@ class CalcularIngestaoDiaria {
     fun ResultadoMl (): Double{
         return  resutado_total_ml
     }
+    /*formula calculo agua
+    ate 17 anos 40 ml por cada kg
+    18 a 55 anos 35 ml por cada kg
+    56 a 65 anos 30 ml por cada kg
+    mais 66 25 ml por cada kg
 
+    multiplicar peso em kg por quantidade de ml para ober resultado em Ml
+     */
     fun  CalcularTotal(peso: Double, idade: Int){
    if(idade <=17 ){
        resutadoMl = peso * ML_JOVEM

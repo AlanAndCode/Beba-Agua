@@ -11,6 +11,8 @@
     <string name="Informe_Peso">Informe seu peso</string>
     <string name="Informe_Idade">Informe sua idade</string>
     <string name="dialog_titulo">Redefinir dados</string>
+    <string name="dialog_descriçao">Deseja excluir dados existentes?</string>
+    <string name="Hora_Agua">Hora da agua</string>
 
 
 </resources>
